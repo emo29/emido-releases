@@ -8,8 +8,8 @@
 
 | İşletim Sistemi | Kurulum Paketi | Açıklama |
 | :--- | :--- | :--- |
-| 🪟 **Windows 10 / 11 (64-bit)** | [**📥 Emido_Setup.exe İndir**](https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe) | Tek tıkla kurulum sihirbazı (Masaüstü kısayolu, Sağ Tık menüsü, Otomatik Başlatma ve Discord tarzı otomatik güncelleme dahil) |
-| 🍎 **macOS (Apple Silicon & Intel)** | [**📥 Emido_macOS.zip İndir**](https://github.com/emo29/emido-releases/releases/latest/download/Emido_macOS.zip) | macOS paketi (`Emido_Baslat.command` ile tek tıkla çalışır) |
+| 🪟 **Windows 10 / 11 (64-bit)** | [**📥 Emido_Setup.exe İndir**](https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe) | 3 Adımlı Kurulum Sihirbazı + Grafiksel Kaldırma Sihirbazı (`Uninstall.exe`) + Yayımcı: `Emirhanus imp.` |
+| 🍎 **macOS (Apple Silicon & Intel)** | [**📥 Emido_macOS.zip İndir**](https://github.com/emo29/emido-releases/releases/latest/download/Emido_macOS.zip) | Tam Boyutlu Kurulumsuz macOS Uygulaması (`Emido.app` — Ek Python/kurulum gerektirmez, sürükle-çalıştır) |
 
 🌐 **Tanıtım ve İndirme Sitesi:** [https://emo29.github.io/emido-releases/](https://emo29.github.io/emido-releases/)
 
