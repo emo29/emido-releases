@@ -2,6 +2,6 @@
   "version": "2.5.1",
   "download_url": "https://github.com/emo29/emido-releases/releases/download/v2.5.1/Emido_Setup.exe",
   "macos_download_url": "https://github.com/emo29/emido-releases/releases/download/v2.5.1/Emido_macOS.zip",
-  "sha256": "e513d86de26b75f8bf630268c6c5a1c227e13fc3bc8e46431530a8bba6592f16",
+  "sha256": "ce7c070b4a3abd50d3d3c764efb59aee506b52fdc7fbf5c017047df195d0f5b8",
   "notes": "Shopier destekçi rozeti, Discord tarzı güvenli otomatik güncelleme, Windows Setup sihirbazı ve macOS paketi eklendi."
 }
