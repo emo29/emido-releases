@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build-and-publish-macos:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
