@@ -3,18 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Emido Hub v2.5.1 — Wireless File Transfer, 60 FPS AirPlay Mirroring &amp; Screen Recorder for Windows &amp; macOS</title>
-  <meta name="description" content="Transfer photos, videos &amp; files wirelessly between iPhone/Android and Windows or macOS without cloud limits. Includes 60 FPS AirPlay screen mirroring, MP4 screen recording, shared clipboard, and wireless camera. 100% free." />
-  <meta name="keywords" content="emido, emido hub, transfer photos from iphone to pc, wireless file transfer android to pc, airplay receiver windows, 60 fps screen mirroring, pc screen recorder, shared clipboard phone to pc" />
+  <title>Emido Hub v2.5.1 — Free Wireless File Transfer (iPhone/Android to PC &amp; Mac), 60 FPS AirPlay &amp; Screen Recorder</title>
+  <meta name="description" content="Free AirDrop alternative for Windows 10/11 &amp; macOS. Transfer photos &amp; 4K videos wirelessly from iPhone &amp; Android, mirror iPhone screen at 60 FPS, record MP4 video, sync clipboard, and control PC remotely." />
+  <meta name="keywords" content="emido, emido hub, airdrop for windows, transfer photos iphone to pc wirelessly, android to mac file transfer, free airplay receiver windows, 60fps screen recorder pc, shared clipboard iphone windows" />
+  <meta name="author" content="Emirhanus imp. (Emirhan Turan)" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="yandex-verification" content="2c820d3ae02d966f" />
+  <link rel="icon" type="image/png" href="emido.png" />
   <link rel="canonical" href="https://emo29.github.io/emido-releases/en.html" />
-  <link rel="alternate" hreflang="en" href="https://emo29.github.io/emido-releases/en.html" />
   <link rel="alternate" hreflang="tr" href="https://emo29.github.io/emido-releases/" />
+  <link rel="alternate" hreflang="en" href="https://emo29.github.io/emido-releases/en.html" />
   <link rel="alternate" hreflang="x-default" href="https://emo29.github.io/emido-releases/" />
+
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Emido Hub — Free Wireless Phone &amp; Computer Bridge" />
-  <meta property="og:description" content="Fast local Wi-Fi file transfer, shared clipboard, 60 FPS AirPlay screen mirroring &amp; MP4 recording between iPhone/Android and Windows/macOS." />
+  <meta property="og:site_name" content="Emido Hub" />
+  <meta property="og:title" content="Emido Hub — Wireless Phone &amp; Computer Bridge (Windows &amp; macOS)" />
+  <meta property="og:description" content="Instant offline file &amp; photo transfer for iPhone/Android, universal clipboard, 60 FPS AirPlay mirroring, MP4 screen recorder &amp; wireless remote. 100% free." />
   <meta property="og:url" content="https://emo29.github.io/emido-releases/en.html" />
+  <meta property="og:image" content="https://emo29.github.io/emido-releases/og-banner.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="tr_TR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Emido Hub — Free AirDrop &amp; 60 FPS AirPlay for Windows &amp; Mac" />
+  <meta name="twitter:description" content="Transfer files offline, mirror iPhone at 60 FPS, record MP4 screens &amp; share clipboard across iOS, Android, Windows &amp; macOS." />
+  <meta name="twitter:image" content="https://emo29.github.io/emido-releases/og-banner.png" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,55 +38,158 @@
     "applicationCategory": "UtilitiesApplication",
     "softwareVersion": "2.5.1",
     "url": "https://emo29.github.io/emido-releases/en.html",
+    "image": "https://emo29.github.io/emido-releases/og-banner.png",
     "downloadUrl": "https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "author": { "@type": "Person", "name": "Emirhan Turan" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Offline wireless file & 4K video transfer between iPhone, Android, Windows PC, and macOS",
+      "Bi-directional shared clipboard (text, URLs, screenshots)",
+      "Built-in 60 FPS AirPlay screen mirroring receiver & watermark-free MP4 recorder",
+      "Wireless PC trackpad, keyboard, media remote & live document camera",
+      "Automatic local HEIC-to-JPG smart conversion"
+    ]
   }
   </script>
+
   <style>
-    :root { --bg:#070B14; --card:#111827; --border:#1E293B; --accent:#38BDF8; --text:#F8FAFC; --muted:#94A3B8; }
+    :root { --bg:#070B14; --card:#111827; --border:#1E293B; --accent:#38BDF8; --amber:#FBBF24; --text:#F8FAFC; --muted:#94A3B8; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:radial-gradient(circle at top,#0F172A 0%,#070B14 65%); color:var(--text); line-height:1.6; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:radial-gradient(circle at top,#0F172A 0%,#070B14 65%); color:var(--text); line-height:1.6; min-height:100vh; }
     .container { max-width:1040px; margin:0 auto; padding:24px 20px 64px; }
     .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:13px; color:var(--muted); }
-    .topbar a { color:var(--accent); text-decoration:none; font-weight:600; background:rgba(56,189,248,.12); border:1px solid rgba(56,189,248,.35); padding:5px 12px; border-radius:999px; }
-    .hero { text-align:center; padding:44px 24px; background:rgba(17,24,39,.85); border:1px solid rgba(56,189,248,.28); border-radius:22px; margin-bottom:32px; }
-    .badge { display:inline-block; background:rgba(56,189,248,.14); border:1px solid rgba(56,189,248,.4); color:var(--accent); font-weight:700; font-size:13px; padding:5px 14px; border-radius:999px; margin-bottom:14px; }
-    h1 { font-size:38px; font-weight:800; margin-bottom:12px; } h1 span { color:var(--accent); }
-    .sub { color:var(--muted); font-size:17px; max-width:740px; margin:0 auto 28px; }
+    .topbar a { color:var(--accent); text-decoration:none; font-weight:600; }
+    .lang-pill { background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.35); padding:5px 12px; border-radius:999px; }
+    .hero { text-align:center; padding:44px 24px; background:rgba(17,24,39,0.85); border:1px solid rgba(56,189,248,0.28); border-radius:22px; box-shadow:0 20px 50px rgba(0,0,0,0.55); margin-bottom:32px; }
+    .badge { display:inline-block; background:rgba(56,189,248,0.14); border:1px solid rgba(56,189,248,0.4); color:var(--accent); font-weight:700; font-size:13px; padding:5px 14px; border-radius:999px; margin-bottom:14px; }
+    h1 { font-size:38px; font-weight:800; letter-spacing:-0.5px; margin-bottom:12px; }
+    h1 span { color:var(--accent); }
+    .sub { color:var(--muted); font-size:17px; max-width:760px; margin:0 auto 28px; }
     .dl-grid { display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-bottom:18px; }
     .btn { display:inline-flex; align-items:center; gap:10px; padding:15px 28px; border-radius:14px; font-size:16px; font-weight:800; text-decoration:none; }
-    .btn-win { background:linear-gradient(135deg,#0284C7,#0EA5E9); color:#FFF; border:1px solid #38BDF8; }
+    .btn-win { background:linear-gradient(135deg,#0284C7,#0EA5E9); color:#FFF; border:1px solid #38BDF8; box-shadow:0 10px 28px rgba(14,165,233,0.35); }
     .btn-mac { background:#1E293B; color:#F8FAFC; border:1px solid #475569; }
-    .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; margin-bottom:32px; }
+    .meta-note { font-size:13px; color:var(--muted); }
+    .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; margin-bottom:36px; }
     .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; }
     .card h3 { font-size:17px; color:var(--accent); margin-bottom:8px; }
     .card p { font-size:14px; color:#CBD5E1; }
+    .guides-section { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px; margin-bottom:28px; }
+    .guides-section h2 { font-size:22px; margin-bottom:14px; }
+    .guide-links { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+    .guide-link { display:block; padding:14px 16px; border-radius:12px; background:#0B1220; border:1px solid #1E293B; color:#E2E8F0; text-decoration:none; font-size:14px; }
+    .guide-link strong { display:block; color:var(--accent); margin-bottom:4px; }
     footer { text-align:center; color:var(--muted); font-size:13px; margin-top:42px; }
     footer a { color:var(--accent); text-decoration:none; }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav class="topbar"><span>⚡ <b>Emido Hub v2.5.1</b> • Windows &amp; macOS</span><a href="./">🇹🇷 Türkçe Sürüm</a></nav>
+    <nav class="topbar">
+      <span>⚡ <b>Emido Hub v2.5.1</b> • Windows &amp; macOS</span>
+      <a class="lang-pill" href="./">🇹🇷 Türkçe Sürüm</a>
+    </nav>
+
     <section class="hero">
-      <div class="badge">✨ Version 2.5.1 • 100% Free &amp; Ad-Free</div>
-      <h1><span>Emido Hub</span> — Phone &amp; Computer Bridge</h1>
-      <p class="sub">Transfer photos, videos, and folders between iPhone / Android and Windows / macOS at full Wi-Fi speed without cloud uploads. Includes shared clipboard, 60 FPS AirPlay screen mirroring &amp; MP4 screen recording, and wireless PC remote.</p>
+      <div class="badge">✨ v2.5.1 Live • 100% Free, Offline &amp; Ad-Free</div>
+      <h1><span>Emido Hub</span> — Ultimate Phone &amp; PC Bridge</h1>
+      <p class="sub">
+        Instant wireless file &amp; 4K video transfer between iPhone, Android, Windows PC, and macOS—plus universal clipboard,
+        60 FPS AirPlay screen mirroring, watermark-free MP4 screen recording, wireless trackpad remote, and live document camera.
+        No mobile app installation required.
+      </p>
       <div class="dl-grid">
-        <a class="btn btn-win" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe">🪟 Download for Windows (Emido_Setup.exe)</a>
-        <a class="btn btn-mac" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_macOS.zip">🍎 Download for macOS (Emido_macOS.zip)</a>
+        <a class="btn btn-win" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe">
+          🪟 Download for Windows (Emido_Setup.exe)
+        </a>
+        <a class="btn btn-mac" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_macOS.zip">
+          🍎 Download for macOS (Emido_macOS.zip)
+        </a>
       </div>
-      <p style="font-size:13px;color:var(--muted);">Windows 10/11 (64-bit) &amp; macOS (Apple Developer ID Signed &amp; Notarized) • Saves to <b>Documents / Emido Merkezi</b></p>
+      <div class="meta-note">
+        Windows 10 / 11 (64-bit) &amp; macOS (Apple Silicon M1–M4, Apple Developer ID Signed &amp; Notarized <b>Emido.app</b>) • Zero Cloud Limits
+      </div>
     </section>
+
     <section class="features">
-      <div class="card"><h3>⚡ High-Speed Two-Way File &amp; Photo Transfer</h3><p>Scan the QR code from your iPhone or Android camera — no phone app installation required. Supports HEIC/MOV smart conversion or 100% original raw quality.</p></div>
-      <div class="card"><h3>📋 Universal Shared Clipboard</h3><p>Copy text, links, or images on your phone and paste directly to your PC. Shared web links open automatically in your desktop browser.</p></div>
-      <div class="card"><h3>📺 60 FPS AirPlay Mirroring &amp; MP4 Screen Recording</h3><p>Mirror your iPhone screen directly to Windows/macOS at 60 FPS and record crisp MP4 videos with one click.</p></div>
-      <div class="card"><h3>🖱️ Wireless Touchpad, Keyboard &amp; Live Camera</h3><p>Control your computer from the couch or stream your phone camera as a live document scanner.</p></div>
-      <div class="card"><h3>🔒 Secure Tunnel QR for Restricted Wi-Fi</h3><p>Behind a strict firewall or public Wi-Fi isolation? Switch to Secure Tunnel QR with one click to connect from any network.</p></div>
-      <div class="card"><h3>👻 Ghost Mode &amp; Auto-Updates</h3><p>Runs silently with near-zero CPU usage and automatically updates when new versions ship.</p></div>
+      <div class="card">
+        <h3>⚡ AirDrop-Speed Wireless Transfers</h3>
+        <p>Scan a QR code with your iPhone or Android camera—no app install needed. Auto-convert HEIC to JPG or keep 100% original RAW quality.</p>
+      </div>
+      <div class="card">
+        <h3>📺 60 FPS AirPlay Mirroring &amp; MP4 Recorder</h3>
+        <p>Mirror your iPhone or iPad screen straight to Windows at 60 FPS and record clean, watermark-free MP4 videos in a single click.</p>
+      </div>
+      <div class="card">
+        <h3>📋 Universal Shared Clipboard</h3>
+        <p>Copy text, links, or screenshots between phone and desktop instantaneously. Sent URLs can auto-open in your PC browser.</p>
+      </div>
+      <div class="card">
+        <h3>🖱️ Wireless Trackpad, Keyboard &amp; Camera</h3>
+        <p>Control your PC from the couch with multi-touch trackpad/media keys, or stream your phone camera as a sharp wireless document scanner.</p>
+      </div>
+      <div class="card">
+        <h3>🔒 Restricted Wi-Fi? One-Click Tunnel QR</h3>
+        <p>On office, hotel, or dorm Wi-Fi with AP isolation, click <b>Secure Tunnel QR</b> to pair over an encrypted HTTPS bridge immediately.</p>
+      </div>
+      <div class="card">
+        <h3>🍎 Native Apple-Notarized macOS App</h3>
+        <p>Signed with an official Apple Developer ID certificate and notarized by Apple—opens cleanly on macOS with zero Gatekeeper headaches.</p>
+      </div>
     </section>
-    <footer>Emido Hub v2.5.1 • <a href="./">Türkçe Ana Sayfa</a> • <a href="https://github.com/emo29/emido-releases/releases">All Releases</a></footer>
+
+    <section class="guides-section">
+      <h2>📚 Step-by-Step Guides &amp; How-To Tutorials</h2>
+      <div class="guide-links">
+        <a class="guide-link" href="guides/transfer-photos-iphone-to-pc-wirelessly.html">
+          <strong>📘 How to Transfer Photos & Large Videos from iPhone to PC Wirelessly</strong>
+          Transfer photos, HEIC images, and large 4K videos from iPhone to Windows 10/11 or Mac wirelessly at full original q...
+        </a>
+        <a class="guide-link" href="guides/airdrop-for-windows-iphone-android.html">
+          <strong>📘 The Ultimate Free AirDrop Alternative for Windows & Cross-Platform Devices</strong>
+          Get true AirDrop convenience between iPhone, Android, Windows PC, and macOS. Zero ads, no mobile app required, plus...
+        </a>
+        <a class="guide-link" href="guides/mirror-iphone-screen-to-windows-pc.html">
+          <strong>📘 Mirror Your iPhone or iPad Screen to Windows PC at Smooth 60 FPS</strong>
+          Turn your Windows 10/11 PC into a smooth 60 FPS AirPlay 2 screen mirroring receiver for iPhone and iPad—completely ...
+        </a>
+        <a class="guide-link" href="guides/free-screen-recorder-pc-mp4.html">
+          <strong>📘 Clean, Watermark-Free MP4 Screen & Mirroring Recording</strong>
+          Record mirrored mobile screens, tutorials, and gameplay straight to clean MP4 files on Windows and macOS with 0% id...
+        </a>
+        <a class="guide-link" href="guides/shared-clipboard-iphone-windows-mac.html">
+          <strong>📘 Instant Copy & Paste Between Your Phone and Computer</strong>
+          Copy text, 2FA codes, web links, and screenshots between iPhone/Android and Windows PC or Mac instantaneously over ...
+        </a>
+        <a class="guide-link" href="guides/android-to-mac-wireless-file-transfer.html">
+          <strong>📘 Seamless Wireless File Transfer Between Android and macOS</strong>
+          Replace broken Android File Transfer on macOS with Emido Hub—Apple Developer ID signed & Notarized native arm64 app...
+        </a>
+        <a class="guide-link" href="guides/convert-heic-to-jpg-automatically-pc.html">
+          <strong>📘 Auto-Convert iPhone HEIC Photos to JPG Locally & Privately</strong>
+          Stop uploading private iPhone photos to shady online HEIC converters. Emido Hub automatically converts HEIC to high...
+        </a>
+        <a class="guide-link" href="guides/use-phone-as-wireless-pc-mouse-keyboard.html">
+          <strong>📘 Control Your Computer from the Couch with Your Phone</strong>
+          Control your Windows PC or Mac from the couch using your phone as a smooth multi-touch trackpad, wireless keyboard,...
+        </a>
+        <a class="guide-link" href="guides/use-phone-as-wireless-webcam-scanner.html">
+          <strong>📘 Turn Your Phone into a Wireless Live Camera & Document Scanner</strong>
+          Stream your crisp iPhone or Android rear camera directly to your Windows PC or Mac screen for live document scannin...
+        </a>
+        <a class="guide-link" href="guides/send-large-videos-phone-to-pc-no-cloud.html">
+          <strong>📘 Transfer Multi-Gigabyte 4K Videos from Phone to Computer Offline</strong>
+          Bypass 25MB email caps, slow Google Drive uploads, and WhatsApp compression. Transfer multi-gigabyte 4K 60fps video...
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      Emido Hub v2.5.1 • Published by <b>Emirhanus imp.</b> •
+      <a href="./">Türkçe</a> •
+      <a href="https://github.com/emo29/emido-releases/releases">All Releases</a> •
+      <a href="https://github.com/emo29/emido-releases/issues">Report Issue / Feedback</a>
+    </footer>
   </div>
 </body>
 </html>

@@ -3,34 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iPhone Ekran Yansıtma (60 FPS AirPlay) ve PC Ekran Kaydı — Emido Hub</title>
-  <meta name="description" content="iPhone ekranını Windows veya Mac bilgisayara 60 FPS yansıtma ve tek tıkla MP4 ekran kaydı alma rehberi." />
-  <meta name="keywords" content="pc ekran kaydı, iphone ekran yansıtma pc, bilgisayara ekran yansıtma, airplay windows, ekran kaydedici ücretsiz" />
-  <meta name="robots" content="index, follow" />
+  <title>iPhone Ekranını Bilgisayara Yansıtma (60 FPS AirPlay Windows) ve Kayıt | Emido Hub</title>
+  <meta name="description" content="Ücretsiz AirPlay Windows alıcısı ile iPhone ve iPad ekranını bilgisayara 60 FPS kablosuz yansıtma ve tek tıkla sesli MP4 ekran kaydı alma." />
+  <meta name="keywords" content="iphone ekran yansıtma pc, airplay windows ücretsiz, telefon ekranını bilgisayara yansıtma, iphone ekranını pc de görme, 60 fps ekran yansıtma" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://emo29.github.io/emido-releases/rehberler/ekran-yansitma-ve-kayit.html" />
+  <link rel="icon" type="image/png" href="../emido.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Emido Hub" />
+  <meta property="og:title" content="iPhone Ekranını Bilgisayara Yansıtma (60 FPS AirPlay Windows) ve Kayıt" />
+  <meta property="og:description" content="Ücretsiz AirPlay Windows alıcısı ile iPhone ve iPad ekranını bilgisayara 60 FPS kablosuz yansıtma ve tek tıkla sesli MP4 ekran kaydı alma." />
+  <meta property="og:url" content="https://emo29.github.io/emido-releases/rehberler/ekran-yansitma-ve-kayit.html" />
+  <meta property="og:image" content="https://emo29.github.io/emido-releases/og-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="iPhone Ekranını Bilgisayara Yansıtma (60 FPS AirPlay Windows) ve Kayıt" />
+  <meta name="twitter:description" content="Ücretsiz AirPlay Windows alıcısı ile iPhone ve iPad ekranını bilgisayara 60 FPS kablosuz yansıtma ve tek tıkla sesli MP4 ekran kaydı alma." />
+  <meta name="twitter:image" content="https://emo29.github.io/emido-releases/og-banner.png" />
+
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "iPhone Ekranını Bilgisayara Yansıtma (60 FPS AirPlay Windows) ve Kayıt", "description": "Ücretsiz AirPlay Windows alıcısı ile iPhone ve iPad ekranını bilgisayara 60 FPS kablosuz yansıtma ve tek tıkla sesli MP4 ekran kaydı alma.", "datePublished": "2026-11-13", "dateModified": "2026-11-14", "inLanguage": "tr-TR", "author": {"@type": "Person", "name": "Emirhan Turan"}, "publisher": {"@type": "Organization", "name": "Emido Hub"}, "mainEntityOfPage": "https://emo29.github.io/emido-releases/rehberler/ekran-yansitma-ve-kayit.html", "image": "https://emo29.github.io/emido-releases/og-banner.png"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Telefona ekstra ekran yansıtma uygulaması kurmak gerekir mi?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Apple iOS'un kendi yerleşik Ekran Yansıtma (AirPlay) özelliğini kullanır; telefona hiçbir uygulama kurulmaz."}}]}</script>
+
   <style>
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#070B14; color:#F8FAFC; line-height:1.7; margin:0; padding:32px 20px; }
-    .wrap { max-width:820px; margin:0 auto; background:#111827; border:1px solid #1E293B; border-radius:18px; padding:32px; }
-    a { color:#38BDF8; text-decoration:none; }
-    h1 { font-size:28px; color:#38BDF8; margin-bottom:14px; }
-    h2 { font-size:19px; color:#F8FAFC; margin:22px 0 8px; }
-    p, li { color:#CBD5E1; font-size:15px; margin-bottom:10px; }
-    ul { padding-left:20px; }
-    .cta { display:inline-block; margin-top:18px; background:#0EA5E9; color:#fff; padding:12px 22px; border-radius:10px; font-weight:700; }
+    :root { --bg:#070B14; --card:#111827; --border:#1E293B; --accent:#38BDF8; --text:#F8FAFC; --muted:#94A3B8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+    .wrap { max-width:860px; margin:0 auto; padding:28px 20px 64px; }
+    .nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; font-size:14px; }
+    .nav a { color:var(--accent); text-decoration:none; font-weight:600; }
+    article { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:34px 28px; }
+    h1 { font-size:30px; line-height:1.25; margin-bottom:14px; color:#FFFFFF; }
+    .intro { font-size:16.5px; color:#CBD5E1; margin-bottom:26px; }
+    .step { display:flex; gap:16px; background:#0B1220; border:1px solid var(--border); border-radius:14px; padding:18px; margin-bottom:14px; }
+    .step-num { width:34px; height:34px; border-radius:999px; background:rgba(56,189,248,0.18); border:1px solid var(--accent); color:var(--accent); font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .step h2 { font-size:17px; color:var(--accent); margin-bottom:4px; }
+    .step p { font-size:14.5px; color:#CBD5E1; }
+    .cta { margin:28px 0; padding:24px; border-radius:16px; background:linear-gradient(135deg,rgba(2,132,199,0.2),rgba(17,24,39,0.95)); border:1px solid rgba(56,189,248,0.4); text-align:center; }
+    .cta h3 { font-size:20px; margin-bottom:6px; }
+    .cta p { font-size:14px; color:var(--muted); margin-bottom:16px; }
+    .btns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+    .btn { display:inline-block; padding:12px 22px; border-radius:12px; font-weight:700; text-decoration:none; font-size:15px; }
+    .btn-w { background:#0284C7; color:#FFF; }
+    .btn-m { background:#1E293B; color:#F8FAFC; border:1px solid #475569; }
+    .faq { margin-top:22px; padding-top:18px; border-top:1px solid var(--border); }
+    .faq h3 { font-size:17px; color:#F8FAFC; margin-bottom:6px; }
+    .faq p { font-size:14.5px; color:#CBD5E1; }
+    .rel { margin-top:24px; padding-top:18px; border-top:1px solid var(--border); }
+    .rel h3 { font-size:16px; color:var(--muted); margin-bottom:10px; }
+    .rel ul { list-style:none; display:grid; gap:8px; }
+    .rel a { color:var(--accent); text-decoration:none; font-size:14.5px; }
+    .rel a:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <p><a href="../">← Emido Hub Ana Sayfasına Dön</a></p>
-    <h1>60 FPS Ekran Yansıtma & Tek Tıkla PC Ekran Kaydı</h1>
-    <p>Emido Hub, dahili AirPlay 2 motoru sayesinde iPhone ve iPad ekranınızı ek bir programa gerek kalmadan 60 FPS akıcılıkla bilgisayarınıza yansıtır ve doğrudan MP4 video olarak kaydetmenizi sağlar.</p>
-    <h2>Nasıl Kullanılır?</h2>
-    <ul>
-      <li>Bilgisayarınızda Emido Hub'ı açın.</li>
-      <li>iPhone'unuzda <b>Denetim Merkezi &gt; Ekran Yansıtma</b> menüsünü açın ve listeden <b>Emido</b>'yu seçin.</li>
-      <li>Yansıtılan pencerenin üzerindeki <b>Kayıt (REC)</b> butonuna basarak sesli/görüntülü MP4 ekran kaydı alın veya anlık ekran görüntüsü yakalayın.</li>
-    </ul>
-    <a class="cta" href="../">🚀 Emido Hub'ı Ücretsiz İndir (Windows &amp; macOS)</a>
+    <nav class="nav">
+      <a href="https://emo29.github.io/emido-releases/">← Ana Sayfa & İndirme</a>
+      <a href="https://emo29.github.io/emido-releases/">🌍 English</a>
+    </nav>
+    <article>
+      <h1>iPhone ve iPad Ekranını Windows Bilgisayara 60 FPS Yansıtma</h1>
+      <p class="intro">Çoğu AirPlay programı ücretli abonelik isterken veya ekrana dev filigran koyarken, Emido Hub dahili 60 FPS AirPlay 2 alıcısını tamamen ücretsiz ve reklamsız sunar.</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h2>1. Emido Hub'ı Açık Tutun</h2>
+          <p>Emido başladığında bilgisayarınız yerel ağda otomatik olarak bir AirPlay ekran alıcısı olarak görünür.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h2>2. iPhone Denetim Merkezi > Ekran Yansıtma</h2>
+          <p>iPhone ekranını sağ üstten aşağı kaydırın, 'Ekran Yansıtma' (Screen Mirroring) simgesine dokunun ve listeden bilgisayarınızı (Emido) seçin.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h2>3. Tam Ekran İzleyin veya MP4 Kaydedin</h2>
+          <p>Gecikmesiz 60 FPS görüntüyü sunum, oyun veya ders için büyütün; isterseniz tek tıkla MP4 video kaydını başlatın.</p>
+        </div>
+      </div>
+
+      <div class="cta">
+        <h3>⚡ Emido Hub v2.5.1 — %100 Ücretsiz & Reklamsız İndir</h3>
+        <p>Windows 10/11 ve macOS (Apple Developer ID imzalı & Notarize edilmiş) için tek tıkla indirin.</p>
+        <div class="btns">
+          <a class="btn btn-w" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_Setup.exe">🪟 Windows İçin İndir (.exe)</a>
+          <a class="btn btn-m" href="https://github.com/emo29/emido-releases/releases/latest/download/Emido_macOS.zip">🍎 macOS İçin İndir (.zip)</a>
+        </div>
+      </div>
+
+      <div class="faq">
+        <h3>❓ Sıkça Sorulan Soru: Telefona ekstra ekran yansıtma uygulaması kurmak gerekir mi?</h3>
+        <p>Hayır. Apple iOS'un kendi yerleşik Ekran Yansıtma (AirPlay) özelliğini kullanır; telefona hiçbir uygulama kurulmaz.</p>
+      </div>
+
+      <div class="rel">
+        <h3>🔗 İlgili Rehberler</h3>
+        <ul>
+        <li><a href="iphone-bilgisayara-dosya-aktarma.html">iPhone'dan Bilgisayara Kablosuz Fotoğraf ve Video Nasıl Aktarılır?</a></li>
+        <li><a href="android-bilgisayara-dosya-aktarma.html">Android Telefondan Bilgisayara En Hızlı Kablosuz Dosya Aktarma Yöntemi</a></li>
+        <li><a href="pc-ekran-kaydi-alma-ucretsiz.html">Filigransız, Ücretsiz ve Hafif MP4 Ekran Kaydı Nasıl Alınır?</a></li>
+        <li><a href="ortak-pano-ve-kumanda.html">Telefondan Kopyala, Bilgisayara Yapıştır: Ortak Pano ve PC Kumandası</a></li>
+        <li><a href="windows-icin-airdrop-alternatifi.html">Windows Bilgisayarda iPhone İle AirDrop Konforu: Emido Hub</a></li>
+        </ul>
+      </div>
+    </article>
   </div>
 </body>
 </html>
