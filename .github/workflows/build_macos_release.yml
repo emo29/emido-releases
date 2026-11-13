@@ -1,0 +1,199 @@
+name: Build & Publish Native macOS Emido.app
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish-macos:
+    runs-on: macos-14
+    steps:
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            "pyinstaller>=6.10" \
+            "PyQt6==6.8.1" \
+            "PyQt6-Qt6==6.8.1" \
+            aiohttp \
+            zeroconf \
+            qrcode \
+            pillow \
+            pillow-heif \
+            pyperclip \
+            cryptography
+
+      - name: Build, code-sign, package, and live-test Emido.app on macOS
+        env:
+          EMIDO_PAT: ${{ secrets.EMIDO_PAT }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 "https://x-access-token:${EMIDO_PAT}@github.com/emo29/EMIDO.git" /tmp/emido_priv >/dev/null 2>&1
+
+          python - << 'EOF'
+          import subprocess
+          from pathlib import Path
+          from PIL import Image
+
+          icon_png = Path("/tmp/emido_priv/emido/assets/emido.png")
+          iconset = Path("/tmp/Emido.iconset")
+          iconset.mkdir(exist_ok=True)
+          img = Image.open(icon_png).convert("RGBA")
+          for sz in [16, 32, 128, 256, 512]:
+              img.resize((sz, sz), Image.Resampling.LANCZOS).save(iconset / f"icon_{sz}x{sz}.png")
+              img.resize((sz * 2, sz * 2), Image.Resampling.LANCZOS).save(iconset / f"icon_{sz}x{sz}@2x.png")
+          subprocess.run(["iconutil", "-c", "icns", str(iconset), "-o", "/tmp/Emido.icns"], check=True)
+          EOF
+
+          pyinstaller --noconfirm --clean --windowed --onedir --log-level WARN \
+            --name "Emido" \
+            --icon "/tmp/Emido.icns" \
+            --osx-bundle-identifier "com.emirhanus.emido" \
+            --paths "/tmp/emido_priv" \
+            --add-data "/tmp/emido_priv/emido/web:emido/web" \
+            --add-data "/tmp/emido_priv/emido/assets:emido/assets" \
+            --collect-submodules "emido" \
+            --collect-submodules "zeroconf" \
+            --collect-submodules "aiohttp" \
+            --collect-submodules "PIL" \
+            --collect-submodules "pillow_heif" \
+            --collect-submodules "cryptography" \
+            --hidden-import "qrcode" \
+            --hidden-import "pyperclip" \
+            "/tmp/emido_priv/emido/emido_main.pyw"
+
+          rm -rf /tmp/emido_priv
+
+          python - << 'EOF'
+          import plistlib
+          from pathlib import Path
+
+          plist_path = Path("dist/Emido.app/Contents/Info.plist")
+          with plist_path.open("rb") as f:
+              pl = plistlib.load(f)
+
+          pl["CFBundleName"] = "Emido"
+          pl["CFBundleDisplayName"] = "Emido"
+          pl["CFBundleShortVersionString"] = "2.5.1"
+          pl["CFBundleVersion"] = "2.5.1"
+          pl["LSMinimumSystemVersion"] = "11.0"
+          pl["NSHighResolutionCapable"] = True
+          pl["NSPrincipalClass"] = "NSApplication"
+          pl["NSLocalNetworkUsageDescription"] = (
+              "Emido, aynı Wi-Fi ağındaki telefonunuzla bulutsuz yüksek hızlı "
+              "dosya, pano ve ekran aktarımı yapmak için yerel ağı kullanır."
+          )
+          pl["NSBonjourServices"] = [
+              "_http._tcp",
+              "_https._tcp",
+              "_emido._tcp",
+              "_airdrop._tcp",
+              "_ipp._tcp",
+              "_airplay._tcp",
+              "_raop._tcp",
+          ]
+
+          with plist_path.open("wb") as f:
+              plistlib.dump(pl, f)
+          EOF
+
+          xattr -cr dist/Emido.app
+          codesign --force --deep --sign - dist/Emido.app
+          codesign --verify --deep --strict --verbose=2 dist/Emido.app
+
+          mkdir -p stage
+          cp -R dist/Emido.app stage/Emido.app
+          cat > stage/BENI_OKU_MACOS.txt << 'EOF'
+          =========================================================
+            EMIDO HUB v2.5.1 — macOS Kurulumsuz Uygulama (Emido.app)
+            Yayımcı: Emirhanus imp. (Apple Silicon M1/M2/M3/M4)
+          =========================================================
+
+          Bilgisayarınıza Python veya ek hiçbir program kurmanıza gerek YOKTUR.
+
+          ÇALIŞTIRMA ADIMLARI:
+          1. "Emido.app" uygulamasını "Applications" (Uygulamalar) klasörüne
+             sürükleyin veya doğrudan bu klasörden açın.
+
+          2. İLK AÇILIŞ (macOS Güvenlik Onayı — Sadece 1 Kez Yapılır):
+             • macOS Sequoia (15) / Tahoe (26) kullanıyorsanız:
+               Çift tıkladığınızda "Emido Açılmadı" uyarısı çıkarsa "Tamam"a basın ->
+               "Sistem Ayarları > Gizlilik ve Güvenlik" menüsünün en altına inip
+               "Yine de Aç" (Open Anyway) butonuna bir kez tıklayın.
+             • macOS Sonoma (14) ve öncesi kullanıyorsanız:
+               "Emido" üzerine Sağ Tık (Control + Tık) -> "Aç" (Open) deyin.
+
+             (Alternatif tek satır Terminal komutu: xattr -cr Emido.app && open Emido.app)
+
+          3. İlk onaydan sonra her zaman normal çift tıklamayla doğrudan açılır!
+             Gelen dosyalarınız "Belgeler/Emido Merkezi" klasörüne kaydedilir.
+          EOF
+
+          ditto -c -k --sequesterRsrc stage Emido_macOS.zip
+          ls -lh Emido_macOS.zip
+
+          # Live smoke test extracted via macOS Archive Utility engine (ditto -x -k)
+          ditto -x -k Emido_macOS.zip /tmp/emido_verify
+          test -x /tmp/emido_verify/Emido.app/Contents/MacOS/Emido
+          codesign --verify --deep --strict /tmp/emido_verify/Emido.app
+
+          export QT_QPA_PLATFORM=offscreen
+          /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --setup
+          /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --tray &
+          APP_PID=$!
+          sleep 5
+          STATUS_JSON=$(/tmp/emido_verify/Emido.app/Contents/MacOS/Emido --status)
+          echo "LIVE MACOS STATUS: $STATUS_JSON"
+          echo "$STATUS_JSON" | grep -q '"ok": true'
+          /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --stop || kill "$APP_PID" || true
+
+      - name: Upload verified Emido_macOS.zip to v2.5.1 Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - << 'EOF'
+          import os, json, urllib.request, pathlib
+
+          token = os.environ["GH_TOKEN"]
+          repo = "emo29/emido-releases"
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "User-Agent": "emido-macos-release",
+          }
+
+          req = urllib.request.Request(f"https://api.github.com/repos/{repo}/releases/tags/v2.5.1", headers=headers)
+          rel = json.loads(urllib.request.urlopen(req).read().decode())
+          rel_id = rel["id"]
+
+          for asset in rel.get("assets", []):
+              if asset["name"] == "Emido_macOS.zip":
+                  del_req = urllib.request.Request(
+                      f"https://api.github.com/repos/{repo}/releases/assets/{asset['id']}",
+                      method="DELETE",
+                      headers=headers,
+                  )
+                  urllib.request.urlopen(del_req).read()
+                  print(f"Deleted old Emido_macOS.zip asset id={asset['id']}")
+
+          zip_bytes = pathlib.Path("Emido_macOS.zip").read_bytes()
+          up_req = urllib.request.Request(
+              f"https://uploads.github.com/repos/{repo}/releases/{rel_id}/assets?name=Emido_macOS.zip",
+              data=zip_bytes,
+              method="POST",
+              headers={
+                  **headers,
+                  "Content-Type": "application/zip",
+                  "Content-Length": str(len(zip_bytes)),
+              },
+          )
+          res = json.loads(urllib.request.urlopen(up_req).read().decode())
+          print("Uploaded new verified Emido_macOS.zip:", res["browser_download_url"], "size=", res["size"])
+          EOF
