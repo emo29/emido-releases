@@ -30,9 +30,14 @@ jobs:
             pyperclip \
             cryptography
 
-      - name: Build, code-sign, package, and live-test Emido.app on macOS
+      - name: Build, sign/notarize (if Apple secrets set), package, and live-test Emido.app
         env:
           EMIDO_PAT: ${{ secrets.EMIDO_PAT }}
+          APPLE_CERT_P12_BASE64: ${{ secrets.APPLE_CERT_P12_BASE64 }}
+          APPLE_CERT_PASSWORD: ${{ secrets.APPLE_CERT_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
         run: |
           set -euo pipefail
           git clone --depth 1 "https://x-access-token:${EMIDO_PAT}@github.com/emo29/EMIDO.git" /tmp/emido_priv >/dev/null 2>&1
@@ -104,8 +109,44 @@ jobs:
               plistlib.dump(pl, f)
           EOF
 
+          cat > /tmp/entitlements.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>com.apple.security.cs.allow-jit</key><true/>
+            <key>com.apple.security.cs.allow-unsigned-executable-memory</key><true/>
+            <key>com.apple.security.cs.disable-library-validation</key><true/>
+          </dict>
+          </plist>
+          EOF
+
           xattr -cr dist/Emido.app
-          codesign --force --deep --sign - dist/Emido.app
+
+          if [ -n "${APPLE_CERT_P12_BASE64:-}" ] && [ -n "${APPLE_CERT_PASSWORD:-}" ]; then
+            echo "Developer ID certificate found — signing with Hardened Runtime..."
+            echo "$APPLE_CERT_P12_BASE64" | base64 --decode > /tmp/dev_id.p12
+            security create-keychain -p "build_kc_pass" /tmp/build.keychain
+            security default-keychain -s /tmp/build.keychain
+            security unlock-keychain -p "build_kc_pass" /tmp/build.keychain
+            security import /tmp/dev_id.p12 -k /tmp/build.keychain -P "$APPLE_CERT_PASSWORD" -T /usr/bin/codesign
+            security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "build_kc_pass" /tmp/build.keychain
+            SIGN_ID=$(security find-identity -v -p codesigning /tmp/build.keychain | grep "Developer ID Application" | head -n1 | sed -E 's/.*"([^"]+)".*/\1/')
+            echo "Signing Identity: $SIGN_ID"
+            codesign --force --deep --options runtime --timestamp --entitlements /tmp/entitlements.plist --sign "$SIGN_ID" dist/Emido.app
+            if [ -n "${APPLE_ID:-}" ] && [ -n "${APPLE_TEAM_ID:-}" ] && [ -n "${APPLE_APP_PASSWORD:-}" ]; then
+              echo "Submitting to Apple Notarization service..."
+              ditto -c -k --keepParent dist/Emido.app /tmp/notarize.zip
+              xcrun notarytool submit /tmp/notarize.zip --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_APP_PASSWORD" --wait
+              xcrun stapler staple dist/Emido.app
+              echo "Apple Notarization & Stapling completed!"
+            fi
+            rm -f /tmp/dev_id.p12 /tmp/notarize.zip
+          else
+            echo "No Developer ID secret yet — using ad-hoc signature."
+            codesign --force --deep --sign - dist/Emido.app
+          fi
+
           codesign --verify --deep --strict --verbose=2 dist/Emido.app
 
           mkdir -p stage
@@ -130,10 +171,8 @@ jobs:
              • macOS Sonoma (14) ve öncesi kullanıyorsanız:
                "Emido" üzerine Sağ Tık (Control + Tık) -> "Aç" (Open) deyin.
 
-             (Alternatif tek satır Terminal komutu: xattr -cr Emido.app && open Emido.app)
-
-          3. İlk onaydan sonra her zaman normal çift tıklamayla doğrudan açılır!
-             Gelen dosyalarınız "Belgeler/Emido Merkezi" klasörüne kaydedilir.
+             (Not: Wi-Fi engelliyse QR penceresindeki "Güvenli Tünel QR" butonuyla
+              her ağdan bağlanabilirsiniz.)
           EOF
 
           ditto -c -k --sequesterRsrc stage Emido_macOS.zip
