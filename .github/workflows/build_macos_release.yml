@@ -152,6 +152,11 @@ jobs:
           STATUS_JSON=$(/tmp/emido_verify/Emido.app/Contents/MacOS/Emido --status)
           echo "LIVE MACOS STATUS: $STATUS_JSON"
           echo "$STATUS_JSON" | grep -q '"ok": true'
+          ACTIVE_PORT=$(python -c "import json,sys; print(json.loads(sys.argv[1])['http_port'])" "$STATUS_JSON")
+          echo "Testing GET http://127.0.0.1:${ACTIVE_PORT}/ ..."
+          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/" | grep -qi "Emido"
+          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/api/info" | grep -q '"version"'
+          echo "HTTP WebApp & API 200 OK verified on port ${ACTIVE_PORT}!"
           /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --stop || kill "$APP_PID" || true
 
       - name: Upload verified Emido_macOS.zip to v2.5.1 Release
