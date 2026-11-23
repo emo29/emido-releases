@@ -204,8 +204,10 @@ jobs:
 
           ACTIVE_PORT=$(python -c "import json,sys; print(json.loads(sys.argv[1])['http_port'])" "$STATUS_JSON")
           echo "Testing GET http://127.0.0.1:${ACTIVE_PORT}/ ..."
-          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/" | grep -qi "Emido"
-          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/api/info" | grep -q '"version"'
+          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/" -o /tmp/emido_idx.html
+          grep -qi "Emido" /tmp/emido_idx.html
+          curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/api/info" -o /tmp/emido_info.json
+          grep -q '"version"' /tmp/emido_info.json
           echo "HTTP WebApp & API 200 OK verified on port ${ACTIVE_PORT}!"
           /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --stop || kill "$APP_PID" || true
 
