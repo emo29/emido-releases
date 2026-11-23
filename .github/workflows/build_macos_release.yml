@@ -185,12 +185,23 @@ jobs:
 
           export QT_QPA_PLATFORM=offscreen
           /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --setup
-          /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --tray &
+          /tmp/emido_verify/Emido.app/Contents/MacOS/Emido --tray >/tmp/emido_tray.log 2>&1 &
           APP_PID=$!
-          sleep 5
-          STATUS_JSON=$(/tmp/emido_verify/Emido.app/Contents/MacOS/Emido --status)
+          STATUS_JSON=""
+          for i in $(seq 1 20); do
+            STATUS_JSON=$(/tmp/emido_verify/Emido.app/Contents/MacOS/Emido --status 2>/dev/null || true)
+            if echo "$STATUS_JSON" | grep -q '"ok": true'; then
+              break
+            fi
+            sleep 1
+          done
           echo "LIVE MACOS STATUS: $STATUS_JSON"
-          echo "$STATUS_JSON" | grep -q '"ok": true'
+          if ! echo "$STATUS_JSON" | grep -q '"ok": true'; then
+            cat /tmp/emido_tray.log || true
+            cat "$HOME/Library/Application Support/Emido/data/logs/startup_error.log" || true
+            exit 1
+          fi
+
           ACTIVE_PORT=$(python -c "import json,sys; print(json.loads(sys.argv[1])['http_port'])" "$STATUS_JSON")
           echo "Testing GET http://127.0.0.1:${ACTIVE_PORT}/ ..."
           curl -fsS "http://127.0.0.1:${ACTIVE_PORT}/" | grep -qi "Emido"
